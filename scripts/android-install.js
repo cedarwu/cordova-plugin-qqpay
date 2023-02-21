@@ -40,10 +40,7 @@ module.exports = function (context) {
         return ;
     }
 
-    var targetDir = path.join(projectRoot, "platforms", "android", "src", packageName.replace(/\./g, path.sep), "qqpay");
-    if (!fs.existsSync(targetDir)) {
-		console.info("targetDir not exist.");
-	}
+    var targetDir = path.join(projectRoot, "platforms", "android", "app", "src", "main", "java", packageName.replace(/\./g, path.sep), "qqpay");
 
     var targetFiles = ["CallbackActivity.java"];
 
