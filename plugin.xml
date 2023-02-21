@@ -37,7 +37,6 @@
         </config-file>
 
         <source-file src="src/android/QQPay.java" target-dir="src/cedar/cordova/qqpay" />
-        <source-file src="src/android/CallbackActivity.java" target-dir="src/cedar/cordova/qqpay" />
         <source-file src="src/android/libs/mqqopenpay.jar" target-dir="libs" />
     </platform>
 
