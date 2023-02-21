@@ -74,7 +74,7 @@ public class QQPay extends CordovaPlugin {
     }
 
     @Override
-    public boolean execute(String action, CordovaArgs args, CallbackContext callbackContext) {
+    public boolean execute(String action, CordovaArgs args, CallbackContext callbackContext) throws JSONException {
         Log.d(TAG, String.format("%s is called. Callback ID: %s.", action, callbackContext.getCallbackId()));
 
         if (action.equals("isMobileQQInstalled")) {
