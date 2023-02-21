@@ -40,7 +40,7 @@ module.exports = function (context) {
     }
 
     var targetDir = path.join(projectRoot, "platforms", "android", "src", packageName.replace(/\./g, path.sep), "qqpay");
-    var targetFiles = ["callback-activity.java"];
+    var targetFiles = ["CallbackActivity.java"];
 
     if (['after_plugin_add', 'after_plugin_install'].indexOf(context.hook) === -1) {
         // remove it?
