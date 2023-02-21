@@ -30,7 +30,15 @@ public class QQPay extends CordovaPlugin {
     public static final String APPID_PROPERTY_KEY = "qqappid";
 
     public static final String ERROR_QQ_NOT_INSTALLED = "未安装QQ";
-    public static final String ERROR_INVALID_PARAMETERS = "参数格式错误";
+    public static final String ERROR_PARAMETERS_INVALID = "参数格式错误";
+    public static final String ERROR_PARAMETERS_CHECK = "参数检查错误";
+    public static final String ERROR_PARAMETER_APPID = "参数错误: appId";
+    public static final String ERROR_PARAMETER_NONCE = "参数错误: nonce";
+    public static final String ERROR_PARAMETER_TIMESTAMP = "参数错误: timeStamp";
+    public static final String ERROR_PARAMETER_TOKENID = "参数错误: tokenId";
+    public static final String ERROR_PARAMETER_BARGAINORID = "参数错误: bargainorId";
+    public static final String ERROR_PARAMETER_SIGTYPE = "参数错误: sigType";
+    public static final String ERROR_PARAMETER_SIG = "参数错误: sig";
     public static final String ERROR_SEND_REQUEST_FAILED = "发送请求失败";
     public static final String ERROR_RESPONSE_NULL = "回调结果为空";
     public static final String ERROR_RESPONSE_TYPE_INVALID = "回调类型错误";
@@ -120,7 +128,7 @@ public class QQPay extends CordovaPlugin {
         try {
             params = args.getJSONObject(0);
         } catch (JSONException e) {
-            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            callbackContext.error(ERROR_PARAMETERS_INVALID);
             return true;
         }
 
@@ -132,28 +140,28 @@ public class QQPay extends CordovaPlugin {
         if (params.has("appId")) {
             api.appId = params.getString("appId"); // 应用唯一id
         } else {
-            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            callbackContext.error(ERROR_PARAMETER_APPID);
             return true;
         }
 
         if (params.has("nonce")) {
             api.nonce = params.getString("nonce"); // 随机串
         } else {
-            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            callbackContext.error(ERROR_PARAMETER_NONCE);
             return true;
         }
 
         if (params.has("timeStamp")) {
             api.timeStamp = params.getInt("timeStamp"); // 时间戳
         } else {
-            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            callbackContext.error(ERROR_PARAMETER_TIMESTAMP);
             return true;
         }
 
         if (params.has("tokenId")) {
             api.tokenId = params.getString("tokenId"); // QQ钱包的预支付会话标识
         } else {
-            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            callbackContext.error(ERROR_PARAMETER_TOKENID);
             return true;
         }
 
@@ -168,26 +176,26 @@ public class QQPay extends CordovaPlugin {
         if (params.has("bargainorId")) {
             api.bargainorId = params.getString("bargainorId"); // QQ钱包支付商户号
         } else {
-            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            callbackContext.error(ERROR_PARAMETER_BARGAINORID);
             return true;
         }
 
         if (params.has("sigType")) {
             api.sigType = params.getString("sigType"); // 加密方式
         } else {
-            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            callbackContext.error(ERROR_PARAMETER_SIGTYPE);
             return true;
         }
 
         if (params.has("sig")) {
             api.sig = params.getString("sig"); // 签名串
         } else {
-            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            callbackContext.error(ERROR_PARAMETER_SIG);
             return true;
         }
 
         if (!api.checkParams()) {
-            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            callbackContext.error(ERROR_PARAMETERS_CHECK);
             return true;
         }
 
