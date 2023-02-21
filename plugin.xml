@@ -31,7 +31,7 @@
                 <intent-filter>
                     <action android:name="android.intent.action.VIEW"/>
                     <category android:name="android.intent.category.DEFAULT"/>
-                    <data android:scheme="qwallet$QPAYAPPID"/>
+                    <data android:scheme="qwallet$QQAPPID"/>
                 </intent-filter>
             </activity>
         </config-file>
@@ -69,7 +69,7 @@
                     <string>QQPay</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
-                        <string>qwallet$QPAYAPPID</string>
+                        <string>qwallet$QQAPPID</string>
                     </array>
                 </dict>
             </array>
