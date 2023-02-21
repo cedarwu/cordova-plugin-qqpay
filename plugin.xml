@@ -19,7 +19,7 @@
 
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="QQPay">
-                <param name="android-package" value="cedar.cordova.qqpay" />
+                <param name="android-package" value="cedar.cordova.qqpay.QQPay" />
             </feature>
             <preference name="QQAPPID" value="$QQAPPID"/>
         </config-file>
