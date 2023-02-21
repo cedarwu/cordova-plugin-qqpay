@@ -1,7 +1,11 @@
 package cedar.cordova.qqpay;
 
+import android.util.Log;
+
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaArgs;
 import org.apache.cordova.CordovaPreferences;
 
 import org.json.JSONArray;
@@ -11,8 +15,10 @@ import org.json.JSONObject;
 import com.tencent.mobileqq.openpay.api.IOpenApi;
 import com.tencent.mobileqq.openpay.api.IOpenApiListener;
 import com.tencent.mobileqq.openpay.api.OpenApiFactory;
+import com.tencent.mobileqq.openpay.constants.OpenConstants;
 import com.tencent.mobileqq.openpay.data.base.BaseResponse;
 import com.tencent.mobileqq.openpay.data.pay.PayResponse;
+import com.tencent.mobileqq.openpay.data.pay.PayApi;
 
 /**
  * This class echoes a string called from JavaScript.

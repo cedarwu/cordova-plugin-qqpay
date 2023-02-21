@@ -6,6 +6,9 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
+import org.apache.cordova.CallbackContext;
 
 import com.tencent.mobileqq.openpay.api.IOpenApi;
 import com.tencent.mobileqq.openpay.api.IOpenApiListener;
@@ -53,10 +56,12 @@ public class CallbackActivity extends Activity implements IOpenApiListener {
 
         PayResponse payResponse = (PayResponse) response;
 
+        /*
         message = "apiName:" + payResponse.apiName + " serialnumber:"
                 + payResponse.serialNumber + " isSucess:"
                 + payResponse.isSuccess() + " retCode:"
                 + payResponse.retCode + " retMsg:" + payResponse.retMsg;
+        */
 
         JSONObject resp = new JSONObject();
         try {
@@ -72,12 +77,14 @@ public class CallbackActivity extends Activity implements IOpenApiListener {
 
         if (payResponse.isSuccess()) {
             if (!payResponse.isPayByWeChat()) {
+                /*
                 message += " transactionId:"
                         + payResponse.transactionId + " payTime:"
                         + payResponse.payTime + " callbackUrl:"
                         + payResponse.callbackUrl + " totalFee:"
                         + payResponse.totalFee + " spData:"
                         + payResponse.spData;
+                */
 
                 try {
                     resp.put("transactionId", payResponse.transactionId);
