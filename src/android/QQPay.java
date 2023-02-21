@@ -129,9 +129,6 @@ public class QQPay extends CordovaPlugin {
         api.serialNumber = "" + paySerial++;
         api.callbackScheme = callbackScheme;
 
-        api.pubAcc = ""; // 手Q公众帐号，暂时未对外开放申请
-        api.pubAccHint = ""; // 关注手Q公众帐号提示语
-
         if (params.has("appId")) {
             api.appId = params.getString("appId"); // 应用唯一id
         } else {
@@ -158,6 +155,14 @@ public class QQPay extends CordovaPlugin {
         } else {
             callbackContext.error(ERROR_INVALID_PARAMETERS);
             return true;
+        }
+
+        if (params.has("pubAcc")) {
+            api.pubAcc = params.getString("pubAcc"); // 手Q公众帐号，暂时未对外开放申请。
+        }
+
+        if (params.has("pubAccHint")) {
+            api.pubAccHint = params.getString("pubAccHint"); // 关注手Q公众帐号提示语
         }
 
         if (params.has("bargainorId")) {
