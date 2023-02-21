@@ -9,6 +9,7 @@ module.exports = function (context) {
 
     // The plugins array will be empty during platform add
     if (plugins.length > 0 && plugins.indexOf('cordova-plugin-qqpay') === -1) {
+        console.info("cordova-plugin-qqpay not found");
         return ;
     }
 
@@ -40,6 +41,10 @@ module.exports = function (context) {
     }
 
     var targetDir = path.join(projectRoot, "platforms", "android", "src", packageName.replace(/\./g, path.sep), "qqpay");
+    if (!fs.existsSync(targetDir)) {
+		console.info("targetDir not exist.");
+	}
+
     var targetFiles = ["CallbackActivity.java"];
 
     if (['after_plugin_add', 'after_plugin_install'].indexOf(context.hook) === -1) {
@@ -62,6 +67,7 @@ module.exports = function (context) {
 
                 data = data.replace(/^package __PACKAGE_NAME__;/m, 'package ' + packageName + '.qqpay;');
                 fs.writeFileSync(path.join(targetDir, f), data);
+                console.info("write file:", path.join(targetDir, f));
             });
         });
     }
