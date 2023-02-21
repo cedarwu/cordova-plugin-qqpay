@@ -1,0 +1,27 @@
+{
+  "name": "cordova-plugin-qqpay",
+  "version": "1.0.0",
+  "description": "cordova plugin for qqpay",
+  "cordova": {
+    "id": "cordova-plugin-qqpay",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cedarwu/cordova-plugin-qqpay.git"
+  },
+  "keywords": [
+    "cordova",
+    "qq",
+    "qqpay",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "cedar <cedarty@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/cedarwu/cordova-plugin-qqpay"
+}
