@@ -17,7 +17,6 @@ import com.tencent.mobileqq.openpay.api.IOpenApiListener;
 import com.tencent.mobileqq.openpay.api.OpenApiFactory;
 import com.tencent.mobileqq.openpay.constants.OpenConstants;
 import com.tencent.mobileqq.openpay.data.base.BaseResponse;
-import com.tencent.mobileqq.openpay.data.pay.PayResponse;
 import com.tencent.mobileqq.openpay.data.pay.v2.PayApiV2;
 
 /**
@@ -61,7 +60,7 @@ public class QQPay extends CordovaPlugin {
     protected void initQQPay() {
         if (openApi == null) {
             String appId = getAppId();
-            openApi = OpenApiFactory.getInstance(this.cordova.getActivity(), appId);
+            openApi = OpenApiFactory.getInstance(this.cordova.getActivity());
         }
     }
 
