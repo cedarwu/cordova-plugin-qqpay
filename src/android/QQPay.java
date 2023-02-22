@@ -183,6 +183,16 @@ public class QQPay extends CordovaPlugin {
             return true;
         }
 
+        if (params.has("signType")) {
+            api.signType = params.getString("signType");
+        }
+        if (params.has("extData")) {
+            api.extData = params.getString("extData");
+        }
+        if (params.has("transaction")) {
+            api.transaction = params.getString("transaction");
+        }
+
         if (!api.checkParams()) {
             callbackContext.error(ERROR_PARAMETERS_CHECK);
             return true;

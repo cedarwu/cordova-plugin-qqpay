@@ -66,17 +66,11 @@ public class CallbackActivity extends Activity implements IOpenApiListener {
         try {
             resp.put("retCode", payResponse.retCode);
             resp.put("retMsg", payResponse.retMsg);
+            resp.put("transaction", payResponse.transaction);
             resp.put("apiName", payResponse.apiName);
-            resp.put("serialNumber", payResponse.serialNumber);
-            resp.put("isSuccess", payResponse.isSuccess());
-            resp.put("isPayByWeChat", payResponse.isPayByWeChat());
-            if (!payResponse.isPayByWeChat()) {
-                resp.put("transactionId", payResponse.transactionId);
-                resp.put("payTime", payResponse.payTime);
-                resp.put("callbackUrl", payResponse.callbackUrl);
-                resp.put("totalFee", payResponse.totalFee);
-                resp.put("spData", payResponse.spData);
-            }
+            resp.put("apiMark", payResponse.apiMark);
+            resp.put("prepayId", payResponse.prepayId);
+            resp.put("extData", payResponse.extData);
         } catch (JSONException e) {
             System.out.println(e);
         }
