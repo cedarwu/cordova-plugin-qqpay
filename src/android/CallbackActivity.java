@@ -56,12 +56,11 @@ public class CallbackActivity extends Activity implements IOpenApiListener {
 
         PayResponse payResponse = (PayResponse) response;
 
-        /*
-        message = "apiName:" + payResponse.apiName + " serialnumber:"
-                + payResponse.serialNumber + " isSucess:"
-                + payResponse.isSuccess() + " retCode:"
-                + payResponse.retCode + " retMsg:" + payResponse.retMsg;
-        */
+        if (!payResponse.isSuccess()) {
+            ctx.error(String.format("retCode: %d, retMsg: %s", payResponse.retCode, payResponse.retMsg));
+            finish();
+            return;
+        }
 
         JSONObject resp = new JSONObject();
         try {
@@ -71,32 +70,17 @@ public class CallbackActivity extends Activity implements IOpenApiListener {
             resp.put("isPayByWeChat", payResponse.isPayByWeChat());
             resp.put("retCode", payResponse.retCode);
             resp.put("retMsg", payResponse.retMsg);
+            if (!payResponse.isPayByWeChat()) {
+                resp.put("transactionId", payResponse.transactionId);
+                resp.put("payTime", payResponse.payTime);
+                resp.put("callbackUrl", payResponse.callbackUrl);
+                resp.put("totalFee", payResponse.totalFee);
+                resp.put("spData", payResponse.spData);
+            }
         } catch (JSONException e) {
             System.out.println(e);
         }
 
-        if (payResponse.isSuccess()) {
-            if (!payResponse.isPayByWeChat()) {
-                /*
-                message += " transactionId:"
-                        + payResponse.transactionId + " payTime:"
-                        + payResponse.payTime + " callbackUrl:"
-                        + payResponse.callbackUrl + " totalFee:"
-                        + payResponse.totalFee + " spData:"
-                        + payResponse.spData;
-                */
-
-                try {
-                    resp.put("transactionId", payResponse.transactionId);
-                    resp.put("payTime", payResponse.payTime);
-                    resp.put("callbackUrl", payResponse.callbackUrl);
-                    resp.put("totalFee", payResponse.totalFee);
-                    resp.put("spData", payResponse.spData);
-                } catch (JSONException e) {
-                    System.out.println(e);
-                }
-            }
-        }
         ctx.success(resp); // 回调
         finish();
     }
