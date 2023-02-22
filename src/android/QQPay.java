@@ -110,7 +110,7 @@ public class QQPay extends CordovaPlugin {
     }
 
     protected boolean isMobileQQSupportApi(CallbackContext callbackContext) {
-        boolean isSupport = openApi.isMobileQQSupportApi(OpenConstants.API_NAME_PAY);
+        boolean isSupport = openApi.isMobileQQSupportApi(OpenConstants.ApiName.PAY_V2);
 
         if (!isSupport) {
             callbackContext.success(0);
