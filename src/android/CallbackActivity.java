@@ -14,7 +14,7 @@ import com.tencent.mobileqq.openpay.api.IOpenApi;
 import com.tencent.mobileqq.openpay.api.IOpenApiListener;
 import com.tencent.mobileqq.openpay.api.OpenApiFactory;
 import com.tencent.mobileqq.openpay.data.base.BaseResponse;
-import com.tencent.mobileqq.openpay.data.pay.PayResponse;
+import com.tencent.mobileqq.openpay.data.pay.v2.PayResponseV2;
 
 import cedar.cordova.qqpay.QQPay;
 
@@ -47,14 +47,14 @@ public class CallbackActivity extends Activity implements IOpenApiListener {
             return;
         }
 
-        if (!(response instanceof PayResponse)) {
+        if (!(response instanceof PayResponseV2)) {
             Log.d(QQPay.TAG, "response is not PayResponse");
             ctx.error(QQPay.ERROR_RESPONSE_TYPE_INVALID);
             finish();
             return;
         }
 
-        PayResponse payResponse = (PayResponse) response;
+        PayResponseV2 payResponse = (PayResponseV2) response;
 
         if (!payResponse.isSuccess()) {
             ctx.error(String.format("retCode: %d, retMsg: %s", payResponse.retCode, payResponse.retMsg));
@@ -64,12 +64,12 @@ public class CallbackActivity extends Activity implements IOpenApiListener {
 
         JSONObject resp = new JSONObject();
         try {
+            resp.put("retCode", payResponse.retCode);
+            resp.put("retMsg", payResponse.retMsg);
             resp.put("apiName", payResponse.apiName);
             resp.put("serialNumber", payResponse.serialNumber);
             resp.put("isSuccess", payResponse.isSuccess());
             resp.put("isPayByWeChat", payResponse.isPayByWeChat());
-            resp.put("retCode", payResponse.retCode);
-            resp.put("retMsg", payResponse.retMsg);
             if (!payResponse.isPayByWeChat()) {
                 resp.put("transactionId", payResponse.transactionId);
                 resp.put("payTime", payResponse.payTime);
