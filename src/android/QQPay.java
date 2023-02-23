@@ -7,7 +7,6 @@ import org.apache.cordova.PluginResult;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
 import org.apache.cordova.CordovaPreferences;
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -194,7 +193,6 @@ public class QQPay extends CordovaPlugin {
         }
 
         if (!api.checkParams()) {
-            Log.e(TAG, ReflectionToStringBuilder.toString(api));
             Log.e(TAG, api.toString());
             callbackContext.error(ERROR_PARAMETERS_CHECK);
             return true;
