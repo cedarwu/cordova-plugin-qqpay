@@ -193,6 +193,8 @@ public class QQPay extends CordovaPlugin {
         }
 
         if (!api.checkParams()) {
+            Log.e(TAG, ReflectionToStringBuilder.toString(api));
+            Log.e(TAG, api.toString());
             callbackContext.error(ERROR_PARAMETERS_CHECK);
             return true;
         }
