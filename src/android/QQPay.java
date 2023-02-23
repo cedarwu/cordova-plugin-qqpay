@@ -191,6 +191,11 @@ public class QQPay extends CordovaPlugin {
         if (params.has("transaction")) {
             api.transaction = params.getString("transaction");
         }
+        if (params.has("callbackScheme")) {
+            api.callbackScheme = params.getString("callbackScheme");
+        } else {
+            api.callbackScheme = callbackScheme;
+        }
 
         if (!api.checkParams()) {
             Log.e(TAG, api.toString());
