@@ -43,7 +43,8 @@
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
             <feature name="QQPay">
-                <param name="ios-package" value="QQPay" onload="true" />
+                <param name="ios-package" value="CDVQQPay"/>
+                <param name="onload" value="true" />
             </feature>
             <preference name="QQAPPID" value="$QQAPPID"/>
         </config-file>
@@ -74,6 +75,9 @@
             </array>
         </config-file>
 
-        <source-file src="src/ios/qqpay.m" />
+        <source-file src="src/ios/CDVQQPay.m" />
+        <header-file src="src/ios/CDVQQPay.h"/>
+        <source-file src="src/ios/QQWalletSDK.m" />
+        <header-file src="src/ios/QQWalletSDK.h"/>
     </platform>
 </plugin>

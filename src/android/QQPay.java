@@ -196,6 +196,11 @@ public class QQPay extends CordovaPlugin {
         } else {
             api.callbackScheme = callbackScheme;
         }
+        if (params.has("payVersion")) {
+            api.payVersion = params.getString("payVersion");
+        } else {
+            api.payVersion = "1";
+        }
 
         if (!api.checkParams()) {
             Log.e(TAG, api.toString());

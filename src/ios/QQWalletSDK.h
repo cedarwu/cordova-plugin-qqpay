@@ -8,36 +8,50 @@
 
 #import <UIKit/UIKit.h>
 
-/**
- *  QQ钱包SDK
- */
-#define QQWalletURLScheme   @"mqqwallet"
-#define QQWalletAppID       @"appId"
-#define QQWalletBargainorId @"bargainorId"
-#define QQWalletNonce       @"nonce"
-#define QQWalletPubAcc      @"pubAcc"
-#define QQWalletTokenId     @"tokenId"
-#define QQWalletSignature   @"sig"
-#define QQWalletAppVersion  @"appVersion"
-#define QQWalletParams      @"params"
-#define QQWalletApplication @"application"
-#define QQWalletSchemeKey   @"urlScheme"
-
-@interface QQWalletSDK : NSObject
 
 /**
- *  错误码
+ *  错误码定义
  */
 typedef enum{
     QQWalletErrCodeSuccess    = 0,          /**< 成功    */
     QQWalletErrCodeCommon     = -1,         /**< 普通错误类型    */
+    QQWalletErrCodeNotSupport = -2,         /**< 当前手Q版本不支持QQ支付    */
     QQWalletErrCodeUserCancel = -11001,     /**< 用户点击取消并返回    */
-}QQWalletErrCode;
+} QQWalletErrCode;
+
+
+@class QQWalletPayReq,QQWalletPayResp;
+
+typedef void(^QQWalletPayResult)(QQWalletPayResp *payResp);
+
+@interface QQWalletSDK : NSObject
 
 /**
  *  获取QQWalletSDK的单例
  */
 + (instancetype)sharedInstance;
+
+#pragma mark -新版QQ支付API
+
+/// 第三方调用QQ钱包进行支付,  新版API
+/// @param payReq 第三方向QQ终端发起支付的参数结构
+/// @param payResult 第三方向QQ终端发起支付后，QQ终端回调处理结果，包含错误码和错误信息
+- (void)startPay:(QQWalletPayReq *)payReq completion:(QQWalletPayResult) payResult;
+
+/**
+ *  在手机QQ完成支付后，对本APP进行回调，传递支付执行结果
+ *  @param url QQ钱包跳回第三方应用时传递过来的URL
+ *  @return 是否能够响应该回调
+ */
+- (BOOL)hanldeOpenURL:(NSURL *)url;
+
+/**
+ *  检查当前系统环境是否支持QQWallet调用
+ *  @return BOOL 当前系统环境是否支持QQWallet调用
+ */
++ (BOOL)isSupportQQWallet;
+
+#pragma mark -旧版QQ支付API
 
 /**
  *  调起QQ钱包进行支付，参数为从第三方APP从服务器获取的参数，透传到手机QQ内，唤起支付功能
@@ -57,17 +71,57 @@ typedef enum{
                    scheme:(NSString *)scheme
                completion:(void (^)(QQWalletErrCode errCode, NSString *errStr))completion;
 
-/**
- *  在手机QQ完成支付后，对本APP进行回调，传递支付执行结果
- *  @param url QQ钱包跳回第三方应用时传递过来的URL
- *  @return 是否能够响应该回调
- */
-- (BOOL)hanldeOpenURL:(NSURL *)url;
+@end
 
-/**
- *  检查当前系统环境是否支持QQWallet调用
- *  @return BOOL 当前系统环境是否支持QQWallet调用
+
+#pragma mark - QQWalletPayReq
+
+/*! @brief 第三方向QQ终端发起支付的消息结构体
+ *
+ *  第三方向QQ终端发起支付的消息结构体，QQ终端处理后会向第三方返回处理结果
+ *
+ *  @see QQWalletPayResp
  */
-+ (BOOL)isSupportQQWallet;
+@interface QQWalletPayReq : NSObject
+
+/** 第三方APP在QQ钱包开放平台申请的appId */
+@property (nonatomic, copy) NSString *appId;
+
+/** 商家向财付通申请的商家id */
+@property (nonatomic, copy) NSString *partnerId;
+
+/** 预支付订单 */
+@property (nonatomic, copy) NSString *prepayId;
+
+/** 商家根据财付通文档填写的数据和签名 */
+@property (nonatomic, copy) NSString *package;
+
+/** 随机串，防重发 */
+@property (nonatomic, copy) NSString *nonceStr;
+
+/** 时间戳，防重发 */
+@property (nonatomic, copy) NSString *timeStamp;
+
+/** 商家根据开放平台文档对数据做的签名 */
+@property (nonatomic, copy) NSString *sign;
+
+/** 签名方式 */
+@property (nonatomic, copy) NSString *signType;
+
+/** 在您的工程中的plist文件中创建用于回调的URL SCHEME。此URL SCHEME用于手机QQ完成功能后，传递结果信息用。请尽量保证此URL SCHEME不会与其他冲突。*/
+@property (nonatomic, copy) NSString *callbackScheme;
+
+@end
+
+#pragma mark - QQWalletPayResp
+/*! @brief QQ终端返回给第三方的关于支付结果的结构体
+ *
+ *  QQ终端返回给第三方的关于支付结果的结构体
+ */
+@interface QQWalletPayResp : NSObject
+/** 错误码 */
+@property (nonatomic, assign) QQWalletErrCode errCode;
+/** 错误提示字符串 */
+@property (nonatomic, copy) NSString *errStr;
 
 @end
