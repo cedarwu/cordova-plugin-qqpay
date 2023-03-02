@@ -17,11 +17,11 @@
 }
 
 - (void)isMobileQQInstalled:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[QQWalletSDK isSupportQQWallet]];
+    CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[QQWalletSDK isSupportQQWalletV3]];
     [self.commandDelegate sendPluginResult:commandResult callbackId:command.callbackId];
 }
 - (void)isMobileQQSupportPay:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[QQWalletSDK isSupportQQWallet]];
+    CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[QQWalletSDK isSupportQQWalletV3]];
     [self.commandDelegate sendPluginResult:commandResult callbackId:command.callbackId];
 }
 - (void)mqqPay:(CDVInvokedUrlCommand *)command 
@@ -55,6 +55,7 @@
     req.timeStamp = params[@"timestamp"];
     req.sign = params[@"sign"];
     req.signType = params[@"signType"];
+    req.extData = params[@"extData"];
     if([params objectForKey:@"callbackScheme"] != nil) {
         req.callbackScheme = params[@"callbackScheme"];
     } else {

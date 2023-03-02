@@ -46,10 +46,10 @@ typedef void(^QQWalletPayResult)(QQWalletPayResp *payResp);
 - (BOOL)hanldeOpenURL:(NSURL *)url;
 
 /**
- *  检查当前系统环境是否支持QQWallet调用
+ *  检查当前系统环境是否支持QQWalletV3
  *  @return BOOL 当前系统环境是否支持QQWallet调用
  */
-+ (BOOL)isSupportQQWallet;
++ (BOOL)isSupportQQWalletV3;
 
 #pragma mark -旧版QQ支付API
 
@@ -70,6 +70,12 @@ typedef void(^QQWalletPayResult)(QQWalletPayResp *payResp);
                     nonce:(NSString *)nonce
                    scheme:(NSString *)scheme
                completion:(void (^)(QQWalletErrCode errCode, NSString *errStr))completion;
+
+/**
+ *  检查当前系统环境是否支持QQWallet
+ *  @return BOOL 当前系统环境是否支持QQWallet调用
+ */
++ (BOOL)isSupportQQWallet;
 
 @end
 
@@ -111,6 +117,10 @@ typedef void(^QQWalletPayResult)(QQWalletPayResp *payResp);
 /** 在您的工程中的plist文件中创建用于回调的URL SCHEME。此URL SCHEME用于手机QQ完成功能后，传递结果信息用。请尽量保证此URL SCHEME不会与其他冲突。*/
 @property (nonatomic, copy) NSString *callbackScheme;
 
+/**透传字段，在startPay:回调时会原样返回,最大长度1024字节**/
+@property (nonatomic, copy) NSString *extData;
+
+
 @end
 
 #pragma mark - QQWalletPayResp
@@ -119,9 +129,17 @@ typedef void(^QQWalletPayResult)(QQWalletPayResp *payResp);
  *  QQ终端返回给第三方的关于支付结果的结构体
  */
 @interface QQWalletPayResp : NSObject
+
 /** 错误码 */
 @property (nonatomic, assign) QQWalletErrCode errCode;
+
 /** 错误提示字符串 */
 @property (nonatomic, copy) NSString *errStr;
+
+/** 预支付订单 */
+@property (nonatomic, copy) NSString *prepayId;
+
+/**回传QQWalletPayReq中的extData字段**/
+@property (nonatomic, copy) NSString *extData;
 
 @end
