@@ -17,7 +17,7 @@ import com.tencent.mobileqq.openpay.api.IOpenApiListener;
 import com.tencent.mobileqq.openpay.api.OpenApiFactory;
 import com.tencent.mobileqq.openpay.constants.OpenConstants;
 import com.tencent.mobileqq.openpay.data.base.BaseResponse;
-import com.tencent.mobileqq.openpay.data.pay.v2.PayApiV2;
+import com.tencent.mobileqq.openpay.data.pay.PayApiV2;
 
 /**
  * This class echoes a string called from JavaScript.

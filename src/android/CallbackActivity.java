@@ -14,7 +14,7 @@ import com.tencent.mobileqq.openpay.api.IOpenApi;
 import com.tencent.mobileqq.openpay.api.IOpenApiListener;
 import com.tencent.mobileqq.openpay.api.OpenApiFactory;
 import com.tencent.mobileqq.openpay.data.base.BaseResponse;
-import com.tencent.mobileqq.openpay.data.pay.v2.PayResponseV2;
+import com.tencent.mobileqq.openpay.data.pay.PayResponseV2;
 
 import cedar.cordova.qqpay.QQPay;
 
