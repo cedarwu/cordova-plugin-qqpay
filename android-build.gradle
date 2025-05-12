@@ -1,0 +1,7 @@
+repositories {
+        maven { url "https://mirrors.tencent.com/repository/maven/thirdparty" }
+}
+
+dependencies {
+	api 'com.tencent.mobileqq:openpay:2.0.8'
+}
